@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SwiftWebViewBridgeDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PnT-bK-d6k">
+                                <rect key="frame" x="0.0" y="582" width="375" height="85"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mau-qR-5hu">
+                                        <rect key="frame" x="8" y="9" width="100" height="30"/>
+                                        <state key="normal" title="SendDataToJS"/>
+                                        <connections>
+                                            <action selector="sendDataToJS:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2HM-wB-Afy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sMJ-RS-ckv">
+                                        <rect key="frame" x="8" y="47" width="97" height="30"/>
+                                        <state key="normal" title="CallJSHandler"/>
+                                        <connections>
+                                            <action selector="callJSHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xpf-V7-aDW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aZJ-Zd-Jwz">
+                                        <rect key="frame" x="179" y="47" width="188" height="30"/>
+                                        <state key="normal" title="CallJSHandlerWithCallBack"/>
+                                        <connections>
+                                            <action selector="callJSHandlerWithCallback:" destination="BYZ-38-t0r" eventType="touchUpInside" id="clM-LP-y53"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISd-KH-rfC">
+                                        <rect key="frame" x="176" y="9" width="191" height="30"/>
+                                        <state key="normal" title="SendDataToJSWithCallBack"/>
+                                        <connections>
+                                            <action selector="sendDataToJSWithCallback:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k12-oa-h1h"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="sMJ-RS-ckv" firstAttribute="top" secondItem="mau-qR-5hu" secondAttribute="bottom" constant="8" id="1mc-o3-9bK"/>
+                                    <constraint firstAttribute="trailing" secondItem="ISd-KH-rfC" secondAttribute="trailing" constant="8" id="52u-be-3b8"/>
+                                    <constraint firstItem="aZJ-Zd-Jwz" firstAttribute="top" secondItem="ISd-KH-rfC" secondAttribute="bottom" constant="8" id="88M-AD-iOu"/>
+                                    <constraint firstAttribute="trailing" secondItem="aZJ-Zd-Jwz" secondAttribute="trailing" constant="8" id="Cvj-Qx-v8Q"/>
+                                    <constraint firstAttribute="height" constant="85" id="HtZ-c2-7o7"/>
+                                    <constraint firstItem="sMJ-RS-ckv" firstAttribute="leading" secondItem="PnT-bK-d6k" secondAttribute="leading" constant="8" id="MM2-8P-juk"/>
+                                    <constraint firstAttribute="bottom" secondItem="aZJ-Zd-Jwz" secondAttribute="bottom" constant="8" id="bac-QU-VoT"/>
+                                    <constraint firstAttribute="bottom" secondItem="sMJ-RS-ckv" secondAttribute="bottom" constant="8" id="rRl-1e-2Xc"/>
+                                    <constraint firstItem="mau-qR-5hu" firstAttribute="leading" secondItem="PnT-bK-d6k" secondAttribute="leading" constant="8" id="rns-uy-hQi"/>
+                                </constraints>
+                            </view>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LfD-mY-LM1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="582"/>
+                                <color key="backgroundColor" red="0.28958413004875183" green="0.31462949514389038" blue="0.32950475811958313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="1SW-cL-vRg"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="LfD-mY-LM1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6Qe-q9-1xr"/>
+                            <constraint firstAttribute="trailing" secondItem="PnT-bK-d6k" secondAttribute="trailing" id="7o5-Lh-Gu8"/>
+                            <constraint firstItem="PnT-bK-d6k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8T3-Mr-szZ"/>
+                            <constraint firstAttribute="trailing" secondItem="LfD-mY-LM1" secondAttribute="trailing" id="CLA-wx-h58"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PnT-bK-d6k" secondAttribute="bottom" id="Nef-5C-mDW"/>
+                            <constraint firstItem="PnT-bK-d6k" firstAttribute="top" secondItem="LfD-mY-LM1" secondAttribute="bottom" id="PBF-Tq-xxr"/>
+                            <constraint firstItem="LfD-mY-LM1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bRj-TL-dIz"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="callJSHandlerBt" destination="sMJ-RS-ckv" id="d7x-NE-yVb"/>
+                        <outlet property="callJSHandlerWithCallBackBt" destination="aZJ-Zd-Jwz" id="3Mr-k9-whS"/>
+                        <outlet property="sendDataToJSBt" destination="mau-qR-5hu" id="yc3-dy-vGX"/>
+                        <outlet property="sendDataToJSWithCallBackBt" destination="ISd-KH-rfC" id="r6J-b3-dbk"/>
+                        <outlet property="webView" destination="LfD-mY-LM1" id="LQs-ba-bo3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="396" y="390.85457271364322"/>
+        </scene>
+    </scenes>
+</document>

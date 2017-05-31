@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>InfraredLearn</title>
+        <meta name="flexible" content="initial-dpr=1" />
+        <meta charset="utf-8">
+            <meta content="yes" name="apple-mobile-web-app-capable">
+                <meta content="yes" name="apple-touch-fullscreen">
+                    <meta content="telephone=no,email=no" name="format-detection">
+                        <link rel="stylesheet" href="./main.css">
+                            <link rel="stylesheet" href="./lib/swiper-3.4.2.min.css">
+                                </head>
+    <body style="background-color: #16131E">
+        <div class="container">
+            <div id="header" class="header">IR Viewer</div>
+            <div id="instruction" class="instruction">
+                <img src="./image/HEXA_IR.png" alt="HEXA IR">
+                    <div class="wait-signal">Send any IR signal to the receiver to start.</div>
+                    <div class="hint">Visit www.vincross.com to get the information of IR receiver accessory.</div>
+                    </div>
+            <div id="main" class="main">
+                <div class="canvas-wrap">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <canvas id="wave"></canvas>
+                            </div>
+                            <div class="swiper-slide">
+                                <canvas id="spiro"></canvas>
+                            </div>
+                            <div class="swiper-slide">
+                                <canvas id="hexagon"></canvas>
+                            </div>
+                            <div class="swiper-slide">
+                                <canvas id="tree"></canvas>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+                <div id="operation-wrap" class="operation-wrap"></div>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="./lib/flexible.js"></script>
+        <script type="text/javascript" src="./lib/Tween.js"></script>
+        <script type="text/javascript" src="./lib/spiro.js"></script>
+        <script type="text/javascript" src="./lib/hexagon.js"></script>
+        <script type="text/javascript" src="./lib/smoothie.js"></script>
+        <script type="text/javascript" src="./lib/wave.js"></script>
+        <script type="text/javascript" src="./lib/tree.js"></script>
+        <script type="text/javascript" src="./lib/swiper-3.4.2.min.js"></script>
+        <script type="text/javascript" src="./js/init.js"></script>
+        <script type="text/javascript" src="mind-framework.js"></script>
+        
+        
+        
+        <script type="text/javascript">
+            //display: none情况下不生效
+            var STATE = ''   //控制操作的状态
+            
+            document.getElementById('instruction').style.display = 'none'
+            document.getElementById('main').style.display = 'block'
+            document.getElementById('header').style.backgroundColor = '#242536'
+            document.body.style.backgroundColor = null
+            console.log("Step-1")
+            var mySwiper = new Swiper ('.swiper-container', {
+                                       pagination: '.swiper-pagination'
+                                       })
+
+                                       document.getElementById('operation-wrap').innerHTML = window.renderOpertion(STATE)
+                                       // window.startListenClick()
+                                       window.canvas1 = new Wave(document.getElementById('wave'))
+                                       window.canvas2 = new Hexagon(document.getElementById('hexagon'))
+                                       window.canvas3 = new Spiro(document.getElementById('spiro'))
+                                       window.canvas4 = new Tree(document.getElementById('tree'))
+            
+            window.log = (function(){
+                          var uniqueId = 1;
+                          function _log(message, data) {
+                          var logElem = document.getElementById("logContainer");
+                          var newElem = document.createElement("div");
+                          newElem.className = "logLine";
+                          if (data) {
+                          console.log(message + ":<br/>" + data);
+                                                    
+                          window.canvas1.draw( data.signalVoltage / data.counter + 0.05) //min - 0.05
+                          window.canvas2.draw( data.signalVoltage / data.counter + 0.1)  //min - 0.1
+                          window.canvas3.draw( data.signalVoltage / data.counter )  //min - 0.1
+                          window.canvas4.draw( data.signalVoltage / data.counter )  //min - 0.1
+
+                          
+                          newElem.innerHTML = uniqueId++ + '. ' + message + ':<br/>' + JSON.stringify(data);
+                          }
+                          else {
+                          console.log(message);
+                          newElem.innerHTML = uniqueId++ + '. ' + message;
+                          }
+                          if (logElem.children.length) {
+                          logElem.insertBefore(newElem, logElem.children[0]);
+                          }
+                          else {
+                          logElem.appendChild(newElem);
+                          }
+                          }
+                          return {log: _log};
+                          })().log;
+                          
+                          window.onerror = function(err) {
+                              log("window.onerror: " + err);
+                          };
+        
+        function connectToSwiftWebViewBridge(callback) {
+            if (window.SwiftWebViewBridge) {
+                callback(SwiftWebViewBridge);
+            } else {
+                document.addEventListener('SwiftWebViewBridgeReady', function() {
+                                          callback(SwiftWebViewBridge);
+                                          }, false);
+            }
+        }
+        
+        connectToSwiftWebViewBridge(function(bridge) {
+                                    bridge.init(function(message, responseCallback) {
+                                                log('JS got a message', message);
+                                                log(message);
+                                                var data = {
+                                                'JS Responds': 'Message received = )'
+                                                };
+                                                responseCallback(data);
+                                                });
+                                    
+                                    bridge.registerHandlerForSwift('alertReceivedParmas', function(data, responseCallback) {
+                                                                   log('Swift called alertPassinParmas with', JSON.stringify(data));
+                                                                   alert(JSON.stringify(data));
+                                                                   var responseData = {
+                                                                   'JS Responds': 'alert triggered'
+                                                                   };
+                                                                   responseCallback(responseData);
+                                                                   });
+                                    
+                                    window.testSendDataToSwift = function() {
+                                    bridge.sendDataToSwift('Say Hello Swiftly to Swift');
+                                    };
+                                    });
+                                    
+                                    
+            </script>
+        
+        <div class="container">
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div id='logContainer'></div>
+        </div>
+        
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
